@@ -120,7 +120,7 @@ void test_l1_cellular_modem_hal_api_positive1_Modem_Firmware_Version(void) {
     UT_LOG("Invoking Modem_Firmware_Version with valid buffer...");
     char buffer[128]={0};
     // Invoke Modem_Firmware_Version with valid buffer
-    int result = Modem_Firmware_Version(&buffer);
+    int result = Modem_Firmware_Version(buffer);
     UT_LOG("Expected Result: STATUS_SUCCESS");
     UT_LOG("Return Status: %d", result);
     // Check the return value and buffer content
@@ -175,39 +175,16 @@ static UT_test_suite_t * pSuite = NULL;
  *
  * @return int - 0 on success, otherwise failure
  */
-int register_hal_tests(void)
+int test_cellular_modem_hal_l1_api_register(void)
 {
     // Create the test suite
     pSuite = UT_add_suite("[L1 cellular_modem_hal_api]", NULL, NULL);
     if (pSuite == NULL) {
         return -1;
     }
-    // List of test function names and strings
-   const char* list1[] = {"l1_cellular_modem_hal_api_positive1_Modem_FactoryReset","l1_cellular_modem_hal_api_positive1_Modem_Reboot","l1_cellular_modem_hal_api_positive1_Modem_Firmware_Version","l1_cellular_modem_hal_api_negative1_Modem_Firmware_Version"};
-   void (*list2[])() = {test_l1_cellular_modem_hal_api_positive1_Modem_FactoryReset,test_l1_cellular_modem_hal_api_positive1_Modem_Reboot,test_l1_cellular_modem_hal_api_positive1_Modem_Firmware_Version,test_l1_cellular_modem_hal_api_negative1_Modem_Firmware_Version};
-    // Add tests to the suite
-    for (int i = 0; i < sizeof(list1) / sizeof(list1[0]); i++) {
-        UT_add_test(pSuite, list1[i], list2[i]);
-    }
-    return 0;
-}
-int main(int argc, char** argv)
-{
-    int registerReturn = 0;
-    /* Register tests as required, then call the UT-main to support switches and triggering */
-    UT_init( argc, argv );
-    /* Check if tests are registered successfully */
-    registerReturn = register_hal_tests();
-    if (registerReturn == 0)
-    {
-        printf("register_hal_tests() returned success");
-    }
-    else
-    {
-        printf("register_hal_tests() returned failure");
-        return 1;
-    }
-    /* Begin test executions */
-    UT_run_tests();
+    UT_add_test( pSuite, "l1_cellular_modem_hal_api_positive1_Modem_FactoryReset", test_l1_cellular_modem_hal_api_positive1_Modem_FactoryReset);
+    UT_add_test( pSuite, "l1_cellular_modem_hal_api_positive1_Modem_Reboot", test_l1_cellular_modem_hal_api_positive1_Modem_Reboot);
+    UT_add_test( pSuite, "l1_cellular_modem_hal_api_positive1_Modem_Firmware_Version", test_l1_cellular_modem_hal_api_positive1_Modem_Firmware_Version);
+    UT_add_test( pSuite, "l1_cellular_modem_hal_api_negative1_Modem_Firmware_Version", test_l1_cellular_modem_hal_api_negative1_Modem_Firmware_Version);
     return 0;
 }
