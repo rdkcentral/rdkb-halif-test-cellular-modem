@@ -17,7 +17,7 @@
 */
  
 /**
-* @file l2_test_cellular_modem_hal_api.c
+* @file test_l2_cellular_modem_hal_api.c
 * @page cellular_modem_hal_api Level 2 Tests
 *
 * ## Module's Role
